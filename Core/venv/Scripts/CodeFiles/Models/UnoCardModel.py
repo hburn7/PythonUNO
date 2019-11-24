@@ -1,6 +1,3 @@
-from enum import Enum
-
-
 class UnoCard:
     color = ''  # R, G, B, Y
     number = 0  # Number 0-9 representing the card.
@@ -21,10 +18,8 @@ class DrawCard:
         self.color = c
 
 
-# An Enum basically assigns a handy name to an integer. This way,
-# we can call the class and say OtherSpecial.DRAWFOUR instead of another
-# less easy-to-read naming scheme.
+class OtherSpecial:
+    type = ''
 
-class OtherSpecial(Enum):
-    COLORWHEEL = 1
-    DRAWFOUR = 2  # We need to account for the color change when someone draws 4.
+    def __init__(self, t):
+        self.type = t
