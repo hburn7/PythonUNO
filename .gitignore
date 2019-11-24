@@ -98,3 +98,6 @@ env.bak/
 
 # mypy
 .mypy_cache/
+
+#Other auto-generated stuff
+.idea*
