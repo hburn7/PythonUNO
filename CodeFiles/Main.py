@@ -1,4 +1,5 @@
-from Models import UnoCardModel
+import UnoCardModel
+import GenerateDeck
 
 print('Welcome to Harry, Jordan, and Frankie\'s Python UNO!')
 
@@ -14,9 +15,4 @@ print('Welcome to Harry, Jordan, and Frankie\'s Python UNO!')
 
 # ** I COMMENTED THE ABOVE SO THAT WE DON'T HAVE TO TYPE IT IN EVERY TIME WE WANNA DEBUG! :D **
 
-uc = UnoCardModel.UnoCard('R', 6, '')  # Instantiation of the 'UnoCardModel' class.
-print(uc.color, uc.number, uc.special)  # Returns "R 6 False"
-
-special = UnoCardModel.OtherSpecial('D4')  # Draw 4.
-
-print(special.type)
+GenerateDeck.GenerateDeck.genDeck()
