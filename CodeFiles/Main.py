@@ -1,4 +1,4 @@
-# NOTE: 
+# NOTE: All classes must be above "Main" class.
 
 class UnoCard:
     color = ''  # R, G, B, Y
