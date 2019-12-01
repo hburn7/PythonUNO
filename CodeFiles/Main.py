@@ -3,12 +3,10 @@
 class UnoCard:
     color = ''  # R, G, B, Y
     number = 0  # Number 0-9 representing the card.
-    special = ''  # R or S for reverse and skip respectively.
 
     def __init__(self, color, num, special):
         self.color = color
         self.number = num
-        self.special = special
 
 class UnoCardSpecial:
     color = '' # R, G, B, Y
