@@ -1,20 +1,6 @@
 # NOTE: All classes must be above "Main" class.
 
-class UnoCard:
-    color = ''  # R, G, B, Y
-    number = 0  # Number 0-9 representing the card.
-
-    def __init__(self, color, num, special):
-        self.color = color
-        self.number = num
-
-class UnoCardSpecial:
-    color = '' # R, G, B, Y
-    special = '' # D4W, D2, W, R, S
-
-    def __init__(self, color, specialModifier):
-        self.color = color
-        self.special = specialModifier
+import UnoCardModel
 
 class Main:
     print('Welcome to Harry, Jordan, and Frankie\'s Python UNO!')
