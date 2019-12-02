@@ -6,12 +6,12 @@ class UnoCard:
 
     _card = None
 
-    def __init__(self, c, n, s, w):
-        self.color = c
-        self.number = n
-        self.special = s
-        self.wild = w
-        self._card = 'Card: {}{} Special: {} Wild? {}'.format(c, n, s, w)
+    def __init__(self, color, number, special, wild):
+        self.color = color
+        self.number = number
+        self.special = special
+        self.wild = wild
+        self._card = 'Card: {}{} Special: {} Wild? {}'.format(color, number, special, wild)
 
 
 class DrawCard:

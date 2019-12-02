@@ -16,4 +16,4 @@ class Main:
             print("You have entered an invalid input. Please try again.")
     
     uc = UnoCardModel.UnoCard('R', 6, '', '')
-    print(uc.color, uc.number)
+    print(uc._card)
