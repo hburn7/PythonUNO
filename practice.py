@@ -2,7 +2,7 @@ def UNO():
     import random  
     deck = []
     discard = []
-    colors = ['R','B','G','Y']
+    colors = ['Red','Blue','Green','Yellow']
     special = ['Draw 2','Skip','Reverse']
 
     for h in range(2):
@@ -57,15 +57,24 @@ def UNO():
     # print(player_hands)
     # print(len(deck))
     
-
     count = 1
     
+    discard.append(deck[0])
+    deck.remove(deck[0])
+
     while count <= (len(player_hands)):
         print('Player' + str(count) + "'s hand: ", player_hands['Player' + str(count)])
-        index_of_card = ((int(input('Player '+ str(count) + ',' ' what number card would you like to play? '))) - 1)
-        discard.append(player_hands['Player' + str(count)][index_of_card])
+        index_of_card = ((int(input('Player %s, what number card would you like to play? ' % str(count)))) - 1)
+
+        card = player_hands['Player' + str(count)][index_of_card]
+
+        if(discard[-1][0] != card[0] and
+          discard[-1][1] != card[1] and CardIsNotWild(card)):
+            continue # MAKE THEM DRAW HERE
+
+        discard.append(card)
         print('Discard Pile: ', discard[-1])
-        del player_hands['Player' + str(count)][index_of_card]
+        del card
         #print(player_hands['Player' + str(count)])
         if len(player_hands['Player' + str(count)]) == 0:
             print('Player' + str(count) + ' wins!')
@@ -73,5 +82,10 @@ def UNO():
         count = count + 1
         if count == (len(player_hands) + 1):
             count = 1
-UNO()
 
+def CardIsNotWild(card):
+    if(card[0] != 'W'):
+        return True
+    return False
+
+UNO()
