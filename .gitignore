@@ -101,3 +101,4 @@ env.bak/
 
 #Other auto-generated stuff
 .idea*
+.vs*
