@@ -1,22 +1,45 @@
 import UnoCardModel
 
 class GenerateDeck:
-    def genDeck():
-        k = 0
+    from random import shuffle
+    from itertools import product, repeat, chain
 
-        deck = []
-        letters = ['R', 'G', 'B', 'Y', 'P']
-        specialCardsColors = ['Draw 2', 'Reverse', 'Skip']
+    COLORS = ['red', 'yellow', 'green', 'blue']
+    ALL_COLORS = COLORS + ['wild']
+    NUMBERS = list(range(10)) + list(range(1, 10))
+    COLORED_SPECIALS = ['skip', 'reverse', '+2']
+    COLOR_CARD_TYPES = NUMBERS + COLORED_SPECIALS * 2
+    WILD_CARD_TYPES = ['colorswap', '+4']
+    CARD_TYPES = NUMBERS + COLORED_SPECIALS + WILD_CARD_TYPES
 
-        for i in letters:
-            for j in range(1, 10):
-                deck.append(UnoCardModel.UnoCard(i, j, '', False))
-                print(deck[k]._card)
-                k += 1
-        z = len(deck)
-        for l in letters:
-            for s in specialCardsColors:
-                for y in range(2):
-                    deck.append(UnoCardModel.UnoCard(l, None, s, False))
-                    print(deck[z]._card)
-                    z += 1
+    def create_uno_deck():
+        color_cards = product(COLORS, COLOR_CARD_TYPES)
+        wild_cards = product(repeat('wild', 4), WILD_CARD_TYPES)
+        deck = list(chain(color_cards, wild_cards))
+        shuffle(deck)
+        return deck
+
+    #The_Deck = create_uno_deck()
+    #print(The_Deck)
+
+
+#from random import shuffle
+#from itertools import product, repeat, chain
+#
+#COLORS = ['red', 'yellow', 'green', 'blue']
+#ALL_COLORS = COLORS + ['wild']
+#NUMBERS = list(range(10)) + list(range(1, 10))
+#COLORED_SPECIALS = ['skip', 'reverse', '+2']
+#COLOR_CARD_TYPES = NUMBERS + COLORED_SPECIALS * 2
+#WILD_CARD_TYPES = ['colorswap', '+4']
+#CARD_TYPES = NUMBERS + COLORED_SPECIALS + WILD_CARD_TYPES
+
+#def create_uno_deck():
+#color_cards = product(COLORS, COLOR_CARD_TYPES)
+#wild_cards = product(repeat('wild', 4), WILD_CARD_TYPES)
+#deck = list(chain(color_cards, wild_cards))
+#shuffle(deck)
+#return deck
+
+#The_Deck = create_uno_deck()
+#print(The_Deck)
