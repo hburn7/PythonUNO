@@ -28,3 +28,11 @@ class Main:
             print('Invalid number, please try again.')
         except ValueError:
             print("You have entered an invalid input. Please try again.")
+
+
+
+
+    # count = 1
+    
+    # while count < (len(num_players) + 1):
+    #     index_of_card = ((int(input('Player '+ str(count) + 'What number card would you like to play? '))) + 1):
