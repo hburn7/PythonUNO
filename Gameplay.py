@@ -71,10 +71,20 @@ def UNO():
         card = playerHand[index_of_card]
 
         PlayCard(card, discard)
-
+        DrawnCard = deck[0]
         if(CardIsNotMatch(discard, card)):
             DrawCard(deck, playerHand) # MAKE THEM DRAW HERE
-            ReplayPrompt(playerHand, discard, card)
+            if CardIsNotMatch(discard, DrawnCard):
+                continue
+            if CardIsMatch(discard,DrawnCard):
+                print('Player' + str(count) + "'s hand: ", playerHands['Player' + str(count)])
+                index_of_card = ((int(input('Player %s, what number card would you like to play? ' % str(count)))) - 1)
+        
+                playerHand = playerHands['Player' + str(count)]
+                card = playerHand[index_of_card]
+
+                PlayCard(card, discard)
+
 
 
         if len(playerHands['Player' + str(count)]) == 0:
@@ -91,9 +101,6 @@ def ReplayPrompt(playerHand, discard, card):
             j = j + 1
     if(j == len(playerHand)):
         print('You do not have a playable card. Skipping turn...')
-
-    elif(j != len(playerHand)):
-        print('Wait a sec! You still have a playable card in your hand!')
         
     
 
