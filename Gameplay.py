@@ -39,22 +39,22 @@ def UNO():
         except ValueError:
             print("You have entered an invalid input. Please try again.")
 
-    player_hands = {}
+    playerHands = {}
 
     for i in range(1,(numPlayers + 1)):
-        player_hands['Player' + str(i)] = []
-    #print(player_hands)
+        playerHands['Player' + str(i)] = []
+    #print(playerHands)
 
     random.shuffle(deck)
 
     # print(deck)
 
     for i in range(7):
-        for j in range(1,len(player_hands) + 1):
-            player_hands['Player' + str(j)].append(deck[0])
+        for j in range(1,len(playerHands) + 1):
+            playerHands['Player' + str(j)].append(deck[0])
             del deck[0]
     
-    # print(player_hands)
+    # print(playerHands)
     # print(len(deck))
     
     count = 1
@@ -63,24 +63,40 @@ def UNO():
     deck.remove(deck[0])
     print(discard[0])
 
-    while count <= (len(player_hands)):
-        print('Player' + str(count) + "'s hand: ", player_hands['Player' + str(count)])
+    while count <= (len(playerHands)):
+        print('Player' + str(count) + "'s hand: ", playerHands['Player' + str(count)])
         index_of_card = ((int(input('Player %s, what number card would you like to play? ' % str(count)))) - 1)
         
-        player_hand = player_hands['Player' + str(count)]
-        card = player_hand[index_of_card]
+        playerHand = playerHands['Player' + str(count)]
+        card = playerHand[index_of_card]
 
         PlayCard(card, discard)
 
         if(CardIsNotMatch(discard, card)):
-            DrawCard(deck, player_hand) # MAKE THEM DRAW HERE
+            DrawCard(deck, playerHand) # MAKE THEM DRAW HERE
+            ReplayPrompt(playerHand, discard, card)
 
-        if len(player_hands['Player' + str(count)]) == 0:
+
+        if len(playerHands['Player' + str(count)]) == 0:
             print('Player' + str(count) + ' wins!')
             count = 9
         count = count + 1
-        if count == (len(player_hands) + 1):
+        if count == (len(playerHands) + 1):
            count = 1
+
+def ReplayPrompt(playerHand, discard, card):
+    j = 0
+    for i in range(1, len(playerHand)):
+        if(CardIsNotMatch(discard, playerHand[i])):
+            j = j + 1
+    if(j == len(playerHand)):
+        print('You do not have a playable card. Skipping turn...')
+
+    elif(j != len(playerHand)):
+        print('Wait a sec! You still have a playable card in your hand!')
+        
+    
+
 
 def PlayCard(card, discard):
     if(CardIsMatch(discard, card)):
@@ -109,11 +125,11 @@ def CardIsNotMatch(discard, card):
 
 def CardIsMatch(discard, card):
     if(discard[-1][0] == card[0] or
-        discard[-1][1] == card[1] or CardIsWild(card)):
+        discard[-1].split(' ')[1] == card.split(' ')[1] or CardIsWild(card)):
         return True
     return False
 
-def DrawCard(deck, player_hand):
-    return player_hand.append(deck[0])
+def DrawCard(deck, playerHand):
+    return playerHand.append(deck[0])
 
 UNO()
