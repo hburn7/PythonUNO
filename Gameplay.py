@@ -70,22 +70,20 @@ def UNO():
         playerHand = playerHands['Player' + str(count)]
         card = playerHand[index_of_card]
 
-        PlayCard(card, discard)
-        DrawnCard = deck[0]
+        PlayCard(playerHand, index_of_card, card, discard)
+        drawnCard = deck[0]
         if(CardIsNotMatch(discard, card)):
             DrawCard(deck, playerHand) # MAKE THEM DRAW HERE
-            if CardIsNotMatch(discard, DrawnCard):
+            if CardIsNotMatch(discard, drawnCard):
                 continue
-            if CardIsMatch(discard,DrawnCard):
+            if CardIsMatch(discard, drawnCard):
                 print('Player' + str(count) + "'s hand: ", playerHands['Player' + str(count)])
                 index_of_card = ((int(input('Player %s, what number card would you like to play? ' % str(count)))) - 1)
         
                 playerHand = playerHands['Player' + str(count)]
                 card = playerHand[index_of_card]
 
-                PlayCard(card, discard)
-
-
+                PlayCard(playerHand, index_of_card, card, discard)
 
         if len(playerHands['Player' + str(count)]) == 0:
             print('Player' + str(count) + ' wins!')
@@ -102,14 +100,11 @@ def ReplayPrompt(playerHand, discard, card):
     if(j == len(playerHand)):
         print('You do not have a playable card. Skipping turn...')
         
-    
-
-
-def PlayCard(card, discard):
+def PlayCard(playerHand, index_of_card, card, discard):
     if(CardIsMatch(discard, card)):
         discard.append(card)
+        del playerHand[index_of_card]
         print('Discard Pile: ', discard[-1])
-        del card
     else:
         print('Hey, did you forget the rules?! This card is not playable. Please try again.')
 
@@ -126,7 +121,7 @@ def CardIsWild(card):
 
 def CardIsNotMatch(discard, card):
     if(discard[-1][0] != card[0] and
-        discard[-1][1] != card[1] and CardIsNotWild(card)):
+        discard[-1].split(' ')[1] != card.split(' ')[1] and CardIsNotWild(card)):
         return True
     return False
 
@@ -137,6 +132,7 @@ def CardIsMatch(discard, card):
     return False
 
 def DrawCard(deck, playerHand):
-    return playerHand.append(deck[0])
+    playerHand.append(deck[0])
+    del deck[0]
 
 UNO()
