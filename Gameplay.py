@@ -58,7 +58,7 @@ def UNO():
     # print(len(deck))
     
     count = 1
-    
+    direction = 1
     discard.append(deck[0])
     deck.remove(deck[0])
     print(discard[0])
@@ -88,10 +88,29 @@ def UNO():
         if len(playerHands['Player' + str(count)]) == 0:
             print('Player' + str(count) + ' wins!')
             count = 9
-        count = count + 1
+        if direction == 1:                                  # THIS IS WHERE I PUT THE SKIP AND REVERSE - JORDAN
+            if direction == 1 and card[-7:] == 'Reverse':
+                direction = 2
+                count = count - 1
+                continue
+            if direction == 1 and card[-4:] == 'Skip':
+                count = count + 2
+            else:
+                count = count + 1
+                
+        if direction == 2:
+            if direction == 2 and card[-7:] == 'Reverse':
+                direction = 1
+                count = count + 1
+                continue
+            if direction == 2 and card[-4:] == 'Skip':
+                count = count - 2
+            else:
+                count = count - 1             
         if count == (len(playerHands) + 1):
            count = 1
-
+        if count < 1:
+            count = len(playerHands)
 def ReplayPrompt(playerHand, discard, card):
     j = 0
     for i in range(1, len(playerHand)):
