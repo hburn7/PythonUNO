@@ -88,10 +88,41 @@ def UNO():
         if len(playerHands['Player' + str(count)]) == 0:
             print('Player' + str(count) + ' wins!')
             count = 9
+
+        if(CardIsWild(card) and card.split(' ')[1] == 'Draw' and card.split(' ')[2] == '4'):
+            WildDraw4(deck, playerHands['Player' + str(count + 1)], discard, card, count)
+            count = count + 1
+
+        if(card.split(' ')[1] == 'Draw' and card.split(' ')[2] == '2'):
+            # if(count == len(playerHands)):
+            #     count = 0
+            count = count + 1
+            DrawCard(deck, playerHand)
+            DrawCard(deck, playerHand)
+
+            if(count == len(playerHands)):
+                count = 0
+
+        if(CardIsWild(card)):
+            properColor = False
+
+            while(properColor == False):
+                newColor = input('What color would you like to change to? ')
+
+                if(newColor.lower() == 'red' or newColor.lower() == 'blue' 
+                or newColor.lower() == 'green' or newColor.lower() == 'yellow'):
+                    discard.append(newColor) # Puts the color in the deck w/o a number.
+                    properColor = True
+                else:
+                    print('Invalid color. Please try again.')
+                    properColor = False
+
         if direction == 1:                                  # THIS IS WHERE I PUT THE SKIP AND REVERSE - JORDAN
             if direction == 1 and card[-7:] == 'Reverse':
                 direction = 2
                 count = count - 1
+                if(count == 0):
+                    count = 2
                 continue
             if direction == 1 and card[-4:] == 'Skip':
                 count = count + 2
@@ -111,6 +142,8 @@ def UNO():
            count = 1
         if count < 1:
             count = len(playerHands)
+            
+        
 def ReplayPrompt(playerHand, discard, card):
     j = 0
     for i in range(1, len(playerHand)):
@@ -126,7 +159,6 @@ def PlayCard(playerHand, index_of_card, card, discard):
         print('Discard Pile: ', discard[-1])
     else:
         print('Hey, did you forget the rules?! This card is not playable. Please try again.')
-
 
 def CardIsNotWild(card):
     if(card[0] != 'W'):
@@ -153,6 +185,26 @@ def CardIsMatch(discard, card):
 def DrawCard(deck, playerHand):
     playerHand.append(deck[0])
     del deck[0]
+
+def WildDraw4(deck, playerHand, discard, card, count):
+    properColor = False
+
+    while(properColor == False):
+        newColor = input('What color would you like to change to? ')
+        if(newColor.lower() == 'red' or newColor.lower() == 'blue' 
+        or newColor.lower() == 'green' or newColor.lower() == 'yellow'):
+            discard.append(newColor) # Puts the color in the deck w/o a number.
+
+            DrawCard(deck, playerHand)
+            DrawCard(deck, playerHand)
+            DrawCard(deck, playerHand)
+            DrawCard(deck, playerHand)
+
+            properColor = True
+        else:
+            print('Invalid color. Please try again.')
+            properColor = False
+
 
 
 
