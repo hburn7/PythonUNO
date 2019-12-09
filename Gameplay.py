@@ -90,18 +90,55 @@ def UNO():
             count = 9
 
         if(CardIsWild(card) and card.split(' ')[1] == 'Draw' and card.split(' ')[2] == '4'):
-            WildDraw4(deck, playerHands['Player' + str(count + 1)], discard, card, count)
-            count = count + 1
+            if direction == 1:
+                if count == len(playerHands):
+                    WildDraw4(deck, playerHands['Player1'], discard, card, count)
+                    count = count + 1
+                else:
+                    WildDraw4(deck, playerHands['Player' + str(count + 1)], discard, card, count)
+                    count = count + 1
+            if direction == 2:
+                if count == 1:
+                    WildDraw4(deck, playerHands['Player' + str(len(playerHands))], discard, card, count)
+                    count = count - 1
+                else:
+                    WildDraw4(deck, playerHands['Player' + str(count - 1)], discard, card, count)
+                    count = count - 1
 
         if(card.split(' ')[1] == 'Draw' and card.split(' ')[2] == '2'):
             # if(count == len(playerHands)):
             #     count = 0
-            count = count + 1
-            DrawCard(deck, playerHand)
-            DrawCard(deck, playerHand)
+            if direction == 1:
+                if count == len(playerHands):
+                    playerHands['Player1'].append(deck[0])
+                    del deck[0]
+                    playerHands['Player1'].append(deck[0])
+                    del deck[0]
+                    count = count + 1
+                else:
+                    playerHands['Player' + str(count + 1)].append(deck[0])
+                    del deck[0]
+                    playerHands['Player' + str(count + 1)].append(deck[0])
+                    del deck[0]
+                    count = count + 1
+            if direction == 2:
+                if count == 1:
+                    playerHands['Player4'].append(deck[0])
+                    del deck[0]
+                    playerHands['Player4'].append(deck[0])
+                    del deck[0]
+                    count = count - 1
+                else:
+                    playerHands['Player' + str(count - 1)].append(deck[0])
+                    del deck[0]
+                    playerHands['Player' + str(count - 1)].append(deck[0])
+                    del deck[0]
+                    count = count - 1
 
-            if(count == len(playerHands)):
-                count = 0
+            # if(count == len(playerHands)):
+            #     count = 0
+            # if count == 1:
+            #     count = len(playerHands + 1)
 
         if(CardIsWild(card)):
             properColor = False
@@ -122,10 +159,13 @@ def UNO():
                 direction = 2
                 count = count - 1
                 if(count == 0):
-                    count = 2
+                    count = len(playerHands)
                 continue
             if direction == 1 and card[-4:] == 'Skip':
-                count = count + 2
+                if count == len(playerHands):
+                    count = 2
+                else:
+                    count = count + 2
             else:
                 count = count + 1
                 
@@ -135,7 +175,10 @@ def UNO():
                 count = count + 1
                 continue
             if direction == 2 and card[-4:] == 'Skip':
-                count = count - 2
+                if count == 1:
+                    count = len(playerHands - 1)
+                else:
+                    count = count - 2
             else:
                 count = count - 1             
         if count == (len(playerHands) + 1):
