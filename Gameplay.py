@@ -23,7 +23,7 @@ def UNO():
                 deck.append(card)
 
     for i in range(4):
-        card = 'Wild'
+        card = 'Wild '
         deck.append(card)
         card = 'Wild Draw 4'
         deck.append(card)
@@ -140,7 +140,7 @@ def UNO():
             # if count == 1:
             #     count = len(playerHands + 1)
 
-        if(CardIsWild(card)):
+        if(CardIsWild(card) and len(card) == 5):
             properColor = False
 
             while(properColor == False):
